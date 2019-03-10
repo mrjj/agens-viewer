@@ -1,105 +1,89 @@
-<html>
-<head>
-    <link rel="stylesheet" href="styles/style.css" type="text/css" ></head>
-</head>
-<body>
-<div id="app" class="app">
-        <form class="querystring" id="queryForm" data-bind="click: sendQuery">
-            <div class="querystring-input">
-                <textarea placeholder="Cypher Query" data-bind="value: query"></textarea>
-            </div>
-            <div class="querystring-submit">
-                <button data-bind="click: sendQuery">Query</button>
-            </div>
-        </form>
-    <div class="panes" id="panes">
-        <div class="pane pane-history" id="history">
-            <div class="pane-title history-title">
-                <div class="history-title-count">
-                    <div>History records:
-                        <span class="number" data-bind="text: historyRecords().length"></span>
-                    </div>
-                    <div data-bind="visible: (historyRecords().filter(r => !r.marked).length) && (!clearConfirm())">
-                        <a class="clear" data-bind="click: showClearConfirm" title="Clear history">
-                            Clear
-                        </a>
-                    </div>
+<form class="querystring" id="queryForm" data-bind="click: sendQuery">
+    <div class="querystring-input">
+        <textarea placeholder="Cypher Query" data-bind="value: query"></textarea>
+    </div>
+    <div class="querystring-submit">
+        <button data-bind="click: sendQuery">Query</button>
+    </div>
+</form>
+<div class="panes" id="panes">
+    <div class="pane pane-history" id="history">
+        <div class="pane-title history-title">
+            <div class="history-title-count">
+                <div>History records:
+                    <span class="number" data-bind="text: historyRecords().length"></span>
                 </div>
-                <div>
-                    <p data-bind="visible: clearConfirm">
-                        Really clear
-                        <span
-                                class="number danger"
-                                data-bind="text: historyRecords().filter(r => !r.marked).length"
-                        ></span>
-                        records without stars?
-                    </p>
-                    <p data-bind="visible: clearConfirm">
-                        <a class="no" data-bind="click: hideClearConfirm">No</a>
-                        <a class="yes" data-bind="click: clearHistory">Yes</a>
-                    </p>
+                <div data-bind="visible: (historyRecords().filter(r => !r.marked).length) && (!clearConfirm())">
+                    <a class="clear" data-bind="click: showClearConfirm" title="Clear history">
+                        Clear
+                    </a>
                 </div>
             </div>
-            <div data-bind='foreach: historyRecords'>
-                <div class="history-record" data-bind="css: {'active': query === $parent.query()}">
-                    <div class="mark"
-                         data-bind="click: $parent.toggleHistoryRecordMark, text: $data.marked ? '★' : '☆', css: {'mark-active': $data.marked, 'mark-inactive': !$data.marked}">
-                    </div>
-                    <code
-                            class="res-body"
-                            data-bind="click: $parent.loadHistoryRecord, text: query, css: {'success': isSuccessful }"
-                    ></code>
-                </div>
+            <div>
+                <p data-bind="visible: clearConfirm">
+                    Really clear
+                    <span
+                            class="number danger"
+                            data-bind="text: historyRecords().filter(r => !r.marked).length"
+                    ></span>
+                    records without stars?
+                </p>
+                <p data-bind="visible: clearConfirm">
+                    <a class="no" data-bind="click: hideClearConfirm">No</a>
+                    <a class="yes" data-bind="click: clearHistory">Yes</a>
+                </p>
             </div>
         </div>
-        <div class="pane pane-result" id="res">
-            <code class="res-body" data-bind="text: executedQuery"></code>
-
-            <div data-bind='foreach: queryErrors'>
-                <div class="pane-title error">
-                    Query failed: <span data-bind="text: message"></span>
-                    Position: <span data-bind="text: 'Position' + position"></span>
+        <div data-bind='foreach: historyRecords'>
+            <div class="history-record" data-bind="css: {'active': query === $parent.query()}">
+                <div class="mark"
+                     data-bind="click: $parent.toggleHistoryRecordMark, text: $data.marked ? '★' : '☆', css: {'mark-active': $data.marked, 'mark-inactive': !$data.marked}">
                 </div>
-                <code class="res-body">
-                    <span data-bind="text: head"></span>
-                    <span class="error bold" data-bind="text: tail"></span>
-                </code>
-            </div>
-
-
-            <div class="pane-title success" data-bind="visible: isSuccessful">
-                <span>Query successful and returned </span><span
-                    data-bind="text: rows().length.toString() + ' record' + (rows().length === 1 ? '' : 's')"></span>
-            </div>
-            <div data-bind='foreach: systemErrors'>
-                <div class="pane-title error">
-                    System error (may be not related to request direct way):
-                    <span data-bind="text: message"></span>"
-                </div>
-            </div>
-            <div data-bind='foreach: rows'>
-                <code class="res-body" data-bind="text: JSON.stringify($data);"></code>
-            </div>
-        </div>
-        <div class="pane pane-graph" id="graph">
-            <div id="mountNode" class="graph-mount-node"></div>
-            <div id="minimap" class="graph-mini-map"></div>
-            <div id="nodeInfo" class="node-info">
-                <div data-bind="visible: nodeInfoId" class="node-info-head">
-                    <span data-bind="text: nodeInfoType"></span>
-                    (<span data-bind="text: nodeInfoId" class="number"></span>)
-                </div>
-                <code data-bind="text: nodeInfoProps"></code>
+                <code
+                        class="res-body"
+                        data-bind="click: $parent.loadHistoryRecord, text: query, css: {'success': isSuccessful }"
+                ></code>
             </div>
         </div>
     </div>
+    <div class="pane pane-result" id="res">
+        <code class="res-body" data-bind="text: executedQuery"></code>
+
+        <div data-bind='foreach: queryErrors'>
+            <div class="pane-title error">
+                Query failed: <span data-bind="text: message"></span>
+                Position: <span data-bind="text: 'Position' + position"></span>
+            </div>
+            <code class="res-body">
+                <span data-bind="text: head"></span>
+                <span class="error bold" data-bind="text: tail"></span>
+            </code>
+        </div>
+
+
+        <div class="pane-title success" data-bind="visible: isSuccessful">
+            <span>Query successful and returned </span><span
+                data-bind="text: rows().length.toString() + ' record' + (rows().length === 1 ? '' : 's')"></span>
+        </div>
+        <div data-bind='foreach: systemErrors'>
+            <div class="pane-title error">
+                System error (may be not related to request direct way):
+                <span data-bind="text: message"></span>"
+            </div>
+        </div>
+        <div data-bind='foreach: rows'>
+            <code class="res-body" data-bind="text: JSON.stringify($data);"></code>
+        </div>
+    </div>
+    <div class="pane pane-graph" id="graph">
+        <div id="mountNode" class="graph-mount-node"></div>
+        <div id="minimap" class="graph-mini-map"></div>
+        <div id="nodeInfo" class="node-info">
+            <div data-bind="visible: nodeInfoId" class="node-info-head">
+                <span data-bind="text: nodeInfoType"></span>
+                (<span data-bind="text: nodeInfoId" class="number"></span>)
+            </div>
+            <code data-bind="text: nodeInfoProps"></code>
+        </div>
+    </div>
 </div>
-<script src="contrib/d3-4.13.0.min.js"></script>
-<script src="contrib/g6.js"></script>
-<script src="contrib/g6Plugins.js"></script>
-<script src="contrib/knockout-3.4.2.min.js"></script>
-<script src="js/colors.js"></script>
-<script src="js/storage.js"></script>
-<script src="js/app.js"></script>
-</body>
-</html>

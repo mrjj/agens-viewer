@@ -1,7 +1,8 @@
 {
   "name": "agens-viewer",
   "description": "Simple AgensGraph web UI client",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "main": "index.js",
   "author": {
     "email": "post.ilya@gmail.com",
     "name": "Ilya Kutukov"
@@ -16,7 +17,14 @@
   },
   "scripts": {
     "start": "nodemon ./src/server/index.js",
-    "dev": "nodemon ./src/server/index.js --watch ./src/"
+    "dev": "npm run watch",
+    "eslint": "eslint ./src",
+    "test": "jest ./src",
+    "ci": "npm run test && npm run eslint && npm run build",
+    "watch": "concurrently 'npm run watch:client' 'npm run watch:server'",
+    "build": "webpack --config ./webpack.config.production.js",
+    "watch:client": "webpack --watch --progress --config ./webpack.config.development.js",
+    "watch:server": "nodemon ./src/server/index.js --watch ./src/"
   },
   "dependencies": {
     "@antv/g6": "2.2.6",
@@ -38,13 +46,23 @@
     "ui"
   ],
   "files": [
+    "dist",
     "src",
     "README.md",
     "CHANGELOG",
     "LICENSE",
-    "yarn.lock"
+    "packages-lock.json"
   ],
   "devDependencies": {
-    "eslint": "5.13.0"
+    "concurrently": "4.1.0",
+    "css-loader": "2.1.1",
+    "eslint": "5.13.0",
+    "jest": "24.3.1",
+    "less": "3.9.0",
+    "less-loader": "4.1.0",
+    "style-loader": "0.23.1",
+    "text-loader": "0.0.1",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.2.3"
   }
 }

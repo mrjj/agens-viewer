@@ -1,4 +1,11 @@
-const ko = window.ko;
+import LayoutDagre from '@antv/g6/plugins/layout.dagre';
+import G6 from '@antv/g6';
+
+import { COLORS, COLORS_ARR } from './colors';
+import { getItem, setItem } from './storage';
+import * as ko from 'knockout';
+// import * as d3  from 'd3';
+// window.d3 = d3;
 const DEFAULT_COLOR_INTENSITY = '500';
 const FONT_SIZE = 8;
 const FONT_HOR_SIZE = FONT_SIZE / 2;
@@ -72,7 +79,7 @@ const initGraph = (g, graphDomId, miniMapDomId, onNodeInfo) => {
     height,
     width,
     plugins: [
-      new G6.Plugins['layout.dagre']({
+      new LayoutDagre({
         rasesep: 300,
         edgesep: 100,
         ranksep: 100,
@@ -86,8 +93,8 @@ const initGraph = (g, graphDomId, miniMapDomId, onNodeInfo) => {
     style: (model) => ({
       fillOpacity: 0.45,
       lineWidth: 2,
-      stroke: str2color(model.label, 500, window.COLORS, window.COLORS_ARR),
-      fill: str2color(model.label, 50, window.COLORS, window.COLORS_ARR),
+      stroke: str2color(model.label, 500, COLORS, COLORS_ARR),
+      fill: str2color(model.label, 50, COLORS, COLORS_ARR),
     }),
     label: (model) => {
       const p = getProps(model.props);
@@ -173,12 +180,13 @@ const addEdge = (item, edgeById) => {
     }
   }
 };
-const AgensViewerModel = function () {
+
+export const AgensViewerModel = function () {
   const that = this;
   this.pending = ko.observable(false);
   this.isSuccessful = ko.observable(null);
   this.executedQuery = ko.observable('');
-  this.historyRecords = ko.observableArray(window.getItem('av-history-records', []));
+  this.historyRecords = ko.observableArray(getItem('av-history-records', []));
   this.rows = ko.observableArray([]);
   this.queryErrors = ko.observableArray([]);
   this.systemErrors = ko.observableArray([]);
@@ -198,26 +206,27 @@ const AgensViewerModel = function () {
     const remaining = that.historyRecords().filter(r => r.marked);
     that.historyRecords(remaining);
     that.query(remaining.length > 0 ? remaining[0].query : that.query());
-    window.setItem('av-history-records', that.historyRecords());
+    setItem('av-history-records', that.historyRecords());
   };
 
-  this.updateGraph = function (data) {
-    this.graph = initGraph(
-      data || { nodes: [], edges: [] },
-      'mountNode',
-      'minimap',
-      (node) => {
-        this.nodeInfoType(node.type);
-        this.nodeInfoId(node.id);
-        this.nodeInfoProps(JSON.stringify(node.props, null, 2));
+  const showNodeInfo = (node) => {
+    this.nodeInfoType(node.type);
+    this.nodeInfoId(node.id);
+    this.nodeInfoProps(JSON.stringify(node.props, null, 2));
+  };
+
+  this.updateGraph = (data) => {
+    const safeData = data || { nodes: [], edges: [] };
+    this.graph = initGraph(safeData, 'mountNode', 'minimap', showNodeInfo);
+  };
+
+  this.updateHistory = () => {
+    const records = (that.historyRecords() || []).filter(
+      (r) => {
+        return r.query === that.executedQuery();
       },
     );
-  };
-
-  this.updateHistory = function () {
-    if ((that.historyRecords() || []).filter(
-      ({ query }) => (query === that.executedQuery()),
-    ).length === 0) {
+    if (records.length === 0) {
       const queryRecord = {
         marked: false,
         ts: (new Date()).getTime(),
@@ -227,11 +236,11 @@ const AgensViewerModel = function () {
         queryErrors: that.queryErrors(),
       };
       that.historyRecords([queryRecord].concat(that.historyRecords()));
-      window.setItem('av-history-records', that.historyRecords());
+      setItem('av-history-records', that.historyRecords());
     }
   };
 
-  this.toggleHistoryRecordMark = async function (h) {
+  this.toggleHistoryRecordMark = async (h) => {
     const hr = that.historyRecords().map((r) => {
       if (r.query === h.query) {
         return Object.assign({}, r, { marked: !r.marked });
@@ -239,7 +248,7 @@ const AgensViewerModel = function () {
       return Object.assign({}, r);
     });
     that.historyRecords(hr);
-    window.setItem('av-history-records', that.historyRecords());
+    setItem('av-history-records', that.historyRecords());
   };
 
   this.loadHistoryRecord = async function (h) {
@@ -247,7 +256,7 @@ const AgensViewerModel = function () {
     const notSelected = that.historyRecords().filter((r) => (r.query !== h.query));
     that.historyRecords(selected.concat(notSelected));
     that.query(selected[0].query);
-    window.setItem('av-history-records', that.historyRecords());
+    setItem('av-history-records', that.historyRecords());
   };
 
   this.sendQuery = async function () {
@@ -310,11 +319,4 @@ const AgensViewerModel = function () {
   return this;
 };
 
-
-const init = () => {
-  ko.applyBindings(new AgensViewerModel(), document.getElementById('#app'));
-  return null;
-};
-
-document.onload = init();
 

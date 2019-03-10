@@ -47,13 +47,11 @@ const init = () => {
     .forEach(k => {
       conf[k] = (typeof envConf[k] === 'undefined' ? DEFAULT_CONF : envConf)[k];
     });
-  process.stdout.write(`${
-    Object.keys(conf)
-      .filter(k => k !== 'password')
-      .sort()
-      .map(k => `${k}: ${conf[k]}`)
-      .join('\n')
-    }\n`);
+  const configKeys = Object.keys(conf)
+    .filter(k => k !== 'password')
+    .sort()
+    .map(k => `${k}: ${conf[k]}`);
+  process.stdout.write(`${configKeys.join('\n')}\n`);
   if (!pool) {
     initPool(conf);
   }

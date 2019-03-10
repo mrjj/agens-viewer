@@ -3,21 +3,21 @@
  * @type {Object}
  */
 
-const MEM_STORAGE_DATA_SYMBOL_NAME = 'MEM_STORAGE_DATA_SYMBOL';
-const MEM_STORAGE_DATA_SYMBOL = Symbol(MEM_STORAGE_DATA_SYMBOL_NAME);
-const MEM_STORAGE_DATA = window[MEM_STORAGE_DATA_SYMBOL] || {};
+export const MEM_STORAGE_DATA_SYMBOL_NAME = 'MEM_STORAGE_DATA_SYMBOL';
+export const MEM_STORAGE_DATA_SYMBOL = Symbol(MEM_STORAGE_DATA_SYMBOL_NAME);
+export const MEM_STORAGE_DATA = window[MEM_STORAGE_DATA_SYMBOL] || {};
 window[MEM_STORAGE_DATA_SYMBOL] = MEM_STORAGE_DATA;
 
 /**
  * fallback to memStorage
  * @type {{getItem: (function(*): *), setItem: (function(*, *): *)}}
  */
-const memStorage = {
+export const memStorage = {
   getItem: (key) => MEM_STORAGE_DATA[key],
   setItem: (key, value) => {
     MEM_STORAGE_DATA[key] = value;
     return value;
-  }
+  },
 };
 
 /**
@@ -25,7 +25,7 @@ const memStorage = {
  * @param type
  * @returns {boolean}
  */
-const isStorageAvailable = (type) => {
+export const isStorageAvailable = (type) => {
   let storage;
   try {
     storage = window[type];
@@ -57,7 +57,7 @@ const isStorageAvailable = (type) => {
  * @param enableFallback
  * @returns {Storage}
  */
-const getStorage = (preferSessionStorage = false, enableFallback = true) => {
+export const getStorage = (preferSessionStorage = false, enableFallback = true) => {
   if (preferSessionStorage) {
     if (isStorageAvailable('sessionStorage')) {
       return window.sessionStorage;
@@ -84,7 +84,7 @@ const getStorage = (preferSessionStorage = false, enableFallback = true) => {
  * @const STORAGE
  * @type {Storage}
  */
-const STORAGE = getStorage();
+export const STORAGE = getStorage();
 
 /**
  * Get value from Storage
@@ -92,7 +92,7 @@ const STORAGE = getStorage();
  * @param defaultValue {?any} - returned when key not found
  * @returns {*}
  */
-window.getItem = (key, defaultValue) => {
+export const getItem = (key, defaultValue) => {
   const value = STORAGE.getItem(key);
   if ((value === null) || (typeof value === 'undefined')) {
     return defaultValue;
@@ -113,7 +113,7 @@ window.getItem = (key, defaultValue) => {
  * @param value
  * @returns {*}
  */
-window.setItem = (key, value) => {
+export const setItem = (key, value) => {
   const safeValue = (typeof value === 'object') ? JSON.stringify(value) : `${value}`;
   STORAGE.setItem(key || '', safeValue);
   return value;

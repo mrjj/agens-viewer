@@ -1,6 +1,4 @@
-
-// noinspection JSDuplicatedDeclaration
-window.COLORS = {
+export const COLORS = {
   'red': {
     '50': '#ffebee',
     '100': '#ffcdd2',
@@ -292,10 +290,10 @@ window.COLORS = {
     '700': '#455a64',
     '800': '#37474f',
     '900': '#263238',
-  }
+  },
 };
 
-window.COLORS_ARR = [
+export const COLORS_ARR = [
   'red',
   'pink',
   'purple',
@@ -314,5 +312,5 @@ window.COLORS_ARR = [
   'deepOrange',
   'brown',
   'grey',
-  'blueGrey'
+  'blueGrey',
 ];
