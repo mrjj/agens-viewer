@@ -1,0 +1,50 @@
+{
+  "name": "agens-viewer",
+  "description": "Simple AgensGraph web UI client",
+  "version": "0.1.1",
+  "author": {
+    "email": "post.ilya@gmail.com",
+    "name": "Ilya Kutukov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrjj/agens-viewer"
+  },
+  "bugs": {
+    "email": "post.ilya@gmail.com",
+    "url": "https://github.com/mrjj/agens-viewer/issues"
+  },
+  "scripts": {
+    "start": "nodemon ./src/server/index.js",
+    "dev": "nodemon ./src/server/index.js --watch ./src/"
+  },
+  "dependencies": {
+    "@antv/g6": "2.2.6",
+    "@antv/g6-plugins": "1.0.9",
+    "agensgraph": "bitnine-oss/agensgraph-nodejs",
+    "express": "4.16.4",
+    "knockout": "3.5.0",
+    "nodemon": "1.18.10",
+    "pegjs": "0.10.0",
+    "serve-static": "1.13.2"
+  },
+  "keywords": [
+    "agens",
+    "agensgraph",
+    "client",
+    "cypher",
+    "database",
+    "graph",
+    "ui"
+  ],
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG",
+    "LICENSE",
+    "yarn.lock"
+  ],
+  "devDependencies": {
+    "eslint": "5.13.0"
+  }
+}

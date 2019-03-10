@@ -1,0 +1,298 @@
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-weight: 100;
+}
+
+#minimap {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.app {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.panes {
+    display: flex;
+    flex: 10;
+    flex-direction: row;
+}
+
+.pane {
+    overflow-x: hidden;
+    display: block;
+}
+
+.graph-mini-map {
+
+}
+
+.graph-mount-node {
+    flex: 2;
+    width: 100%;
+    height: 100%;
+    color: #0F141F;
+    overflow: hidden;
+    background-color: #F5F5F5;
+}
+
+.node-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.node-info-head {
+    flex: 1;
+    padding: 1em 2em;
+}
+
+.node-info code {
+    flex: 5;
+    overflow: scroll!important;
+    padding: 2em;
+}
+
+.querystring {
+    display: flex;
+    flex-direction: row;
+    flex: 2;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.querystring .querystring-input,
+.querystring .querystring-submit {
+    border: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+.querystring .querystring-input {
+    flex: 8;
+    height: 100%;
+    overflow: hidden;
+}
+
+.querystring .querystring-input textarea {
+    cursor: text;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    font-size: 1.25em;
+    line-height: 1.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-bottom: 2px solid #2196f3;
+    outline: none;
+}
+
+.querystring .querystring-submit {
+    flex: 2;
+}
+
+.querystring .querystring-submit button {
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-size: 2.0em;
+    font-weight: 100;
+    padding: 0;
+    margin: 0;
+    background: #2196f3;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.querystring .querystring-submit button:hover {
+    background: #64b5f6;
+}
+
+.querystring .querystring-submit textarea:hover {
+    border-bottom: 4px solid #64b5f6;
+}
+
+
+.pane-history {
+    padding: 2em 2em 2em 3em;
+    flex: 1;
+}
+
+.pane-graph {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.pane-result {
+    flex: 2;
+    padding: 2em;
+}
+
+.pane-title {
+    margin-top: 0.25em;
+}
+
+.history-title,
+.history-title h2 {
+    font-weight: 100;
+    font-size: 1.25em;
+}
+
+.history-title > div:first-child {
+    margin-bottom: 0.5em;
+}
+
+.number {
+    color: #2196F3;
+}
+
+.danger {
+    color: #F44336;
+}
+
+.pane-history .history-title {
+    height: auto;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.history-title-count {
+    display: flex;
+    flex-direction: row;
+}
+
+.history-title-count > div {
+    text-align: left;
+    flex: 100%;
+}
+
+.history-title-count > div:last-child {
+    text-align: right;
+}
+
+code {
+    display: block;
+    font-family: "Courier New", serif, sans-serif;
+    border: dashed #DDDDDD 1px;
+    padding: 0.5em;
+    max-height: 200px;
+    white-space: pre;
+    overflow: auto;
+}
+
+code.res-body {
+    margin-bottom: 1em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.error {
+    color: #c62828; /* red 800 */
+}
+
+.success {
+    color: #2e7d32; /* green 800 */
+
+}
+
+button, a {
+    cursor: pointer;
+}
+
+.no,
+.yes,
+.clear {
+    color: white;
+    border: 0;
+    font-weight: 100;
+    padding: 0.15em 1.0em;
+}
+
+.no {
+    background: #4CAF50;
+    padding: 0.15em 1.5em;
+}
+
+.yes,
+.clear {
+    background: #F44336;
+}
+
+.no:hover {
+    background: #81C784;
+}
+
+.yes:hover,
+.clear:hover {
+    background: #E57373;
+}
+
+.history-record.active:hover code,
+.history-record.active code {
+    border: 1px dashed #2196F3;
+    cursor: default;
+}
+
+.history-record:hover code {
+    border: 1px dashed #9dcef2;
+}
+
+.history-record {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+}
+
+.history-record > * {
+    flex: 100%;
+    cursor: pointer;
+}
+
+.mark {
+    margin-left: -1.5em;
+    display: block;
+    font-size: 1.25em;
+    cursor: pointer;
+    flex: 1.5em;
+}
+
+.mark-active {
+    cursor: pointer;
+    color: #FFC107;
+}
+
+.mark-active:hover {
+    opacity: 0.8;
+}
+
+.mark-inactive {
+    cursor: pointer;
+    color: #607D8B;
+}
+
+.mark-inactive:hover {
+    color: #FFC107;
+}
