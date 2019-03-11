@@ -17,7 +17,9 @@ let pool;
 // Init functions
 const onPoolError = (err) => {
   process.stderr.write(`Unexpected error on idle client: ${err.message} ${err.stack}`);
-  pool.close();
+  if (pool) {
+    pool.close();
+  }
   pollReconnectInterval = setInterval(initPool, POOL_RECONNECT_INTERVAL_MS);
 };
 

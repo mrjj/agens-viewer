@@ -1,4 +1,5 @@
 import LayoutDagre from '@antv/g6/plugins/layout.dagre';
+import '@antv/g6/build/plugin.behaviour.analysis';
 import G6 from '@antv/g6';
 
 import { COLORS, COLORS_ARR } from './colors';
@@ -7,7 +8,7 @@ import * as ko from 'knockout';
 // import * as d3  from 'd3';
 // window.d3 = d3;
 const DEFAULT_COLOR_INTENSITY = '500';
-const FONT_SIZE = 8;
+const FONT_SIZE = 10;
 const FONT_HOR_SIZE = FONT_SIZE / 2;
 
 /**
@@ -47,22 +48,11 @@ const getProps = (p) => Object.keys(p || {}).filter(k => [
 
 const initGraph = (g, graphDomId, miniMapDomId, onNodeInfo) => {
   document.getElementById(graphDomId).innerHTML = '';
-  let simulation = null;
-  let subject = null;
-
-  const onMouseEnter = (ev) => {
-    const item = ev.item;
-    graph.toFront(item);
-  };
-  const onMouseLeave = ev => {
-  };
-
-  const onMouseDown = (ev) => {
-  };
   G6.registerNode('rect', {
+    stroke: 'red 1px',
     getPath: function getPath(item) {
       const width = (Math.max(`${item.model.type || ''}`.length, `${item.model.id || ''}`.length) + 2) * FONT_HOR_SIZE;
-      const height = (2 + 0.5) * FONT_SIZE;
+      const height = (2 + 1) * FONT_SIZE;
       return G6.Util.getRectPath(-width / 2, -height / 2, width, height, 2);
     },
   });
@@ -111,7 +101,6 @@ const initGraph = (g, graphDomId, miniMapDomId, onNodeInfo) => {
   graph.edge({
     style: {
       endArrow: true,
-
       strokeOpacity: 1,
     },
     label(model) {
