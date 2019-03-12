@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+/**
+ * @fileOverview: main Agens Viewer file
+ */
+
+const init = require('../src/server/index');
+
+init();

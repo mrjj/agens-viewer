@@ -52,7 +52,7 @@
         <div data-bind='foreach: queryErrors'>
             <div class="pane-title error">
                 Query failed: <span data-bind="text: message"></span>
-                Position: <span data-bind="text: 'Position' + position"></span>
+                <span data-bind="visible: position">Position: <span data-bind="text: 'Position ' + position"></span></span>
             </div>
             <code class="res-body">
                 <span data-bind="text: head"></span>
