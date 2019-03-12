@@ -1,7 +1,7 @@
 {
   "name": "agens-viewer",
   "description": "Simple AgensGraph web UI client that easy to run and use",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "main": "index.js",
   "bin": {
