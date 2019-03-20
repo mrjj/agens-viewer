@@ -4,11 +4,6 @@ This package provides basic web UI and node.js backend to work with [AgensGraph]
 
 ![Screenshot of version 0.1.4](https://raw.githubusercontent.com/mrjj/agens-viewer/HEAD/doc/screenshot_0.1.4_01.png)
 
-## Package Info
-
-- name: `agens-viewer`
-- version: `0.1.4`
-
 ## How to use
 
 Installation and basic run example:
@@ -39,4 +34,19 @@ $ git clone https://github.com/mrjj/agens-viewer.git
 $ cd  agens-viewer
 $ npm install
 $ npm run dev
+$ open 'http://0.0.0.0:1313'
+
+```
+
+Local instance will be executed with UI on [http://0.0.0.0:1313](http://0.0.0.0:1313).
+
+## Owl
+
+```
+   ◯  .       .        .           .     *     .
+ .  .     .      ___---===(OvO)===---___  .      °     *
+                  .              
+,~^~,   .      .     ◯         .            .      ,~^~^^                
+    ~^\$~^~~^#*~-^\_  __ _ _ _ _ ____/*-~^~~^^~^##~^~^
+                  = * - _-  =_- . - 
 ```

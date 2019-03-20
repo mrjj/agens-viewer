@@ -1,6 +1,6 @@
 <form class="querystring" id="queryForm" data-bind="click: sendQuery">
     <div class="querystring-input">
-        <textarea placeholder="Cypher Query" data-bind="value: query"></textarea>
+        <textarea id="cypher-editor" name="cypher-editor" placeholder="Cypher Query" data-bind="value: query"></textarea>
     </div>
     <div class="querystring-submit">
         <button data-bind="click: sendQuery">Query</button>
@@ -47,12 +47,16 @@
         </div>
     </div>
     <div class="pane pane-result" id="res">
+        Parsed:
+        <code class="res-body" data-bind="text: parsedQuery"></code>
+        Executed
         <code class="res-body" data-bind="text: executedQuery"></code>
 
         <div data-bind='foreach: queryErrors'>
             <div class="pane-title error">
                 Query failed: <span data-bind="text: message"></span>
-                <span data-bind="visible: position">Position: <span data-bind="text: 'Position ' + position"></span></span>
+                <span data-bind="visible: position">Position: <span
+                        data-bind="text: 'Position ' + position"></span></span>
             </div>
             <code class="res-body">
                 <span data-bind="text: head"></span>

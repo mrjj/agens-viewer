@@ -1,7 +1,7 @@
 {
   "name": "agens-viewer",
   "description": "Simple AgensGraph web UI client that easy to run and use",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "main": "index.js",
   "bin": {
@@ -27,6 +27,7 @@
     "ci": "npm run test && npm run lint && npm run build",
     "watch": "concurrently -r 'npm run watch:client' 'npm run watch:server'",
     "build": "webpack --config ./webpack.config.production.js",
+    "build:parser": "curl https://s3.amazonaws.com/artifacts.opencypher.org/M13/Cypher.g4 > ./dist/Cypher.g4 && antlr -Dlanguage=JavaScript ./dist/Cypher.g4",
     "watch:client": "webpack --watch --progress --config ./webpack.config.development.js",
     "watch:server": "nodemon ./src/server/index.js --watch ./src/",
     "prepublish": "npm run build",
@@ -36,6 +37,7 @@
     "@antv/g6": "2.2.6",
     "@antv/g6-plugins": "1.0.9",
     "agensgraph": "bitnine-oss/agensgraph-nodejs",
+    "codemirror": "5.44.0",
     "express": "4.16.4",
     "knockout": "3.5.0",
     "nodemon": "1.18.10",
@@ -64,13 +66,13 @@
   "devDependencies": {
     "concurrently": "4.1.0",
     "css-loader": "2.1.1",
-    "eslint": "5.13.0",
-    "jest": "24.3.1",
+    "eslint": "5.15.3",
+    "jest": "24.5.0",
     "less": "3.9.0",
     "less-loader": "4.1.0",
     "style-loader": "0.23.1",
     "text-loader": "0.0.1",
     "webpack": "4.29.6",
-    "webpack-cli": "3.2.3"
+    "webpack-cli": "3.3.0"
   }
 }

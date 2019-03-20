@@ -73,12 +73,16 @@ const agensQueryAsync = async (poolObj, q, options = []) => {
         onSuccess(res);
       }
     });
-    client.query(q1, [], (e1) => {
-      if (e1) {
-        onError(e1);
-      }
-      qFn();
-    });
+    if (client) {
+      client.query(q1, [], (e1) => {
+        if (e1) {
+          onError(e1);
+        }
+        qFn();
+      });
+    } else {
+      console.error('Client is failed')
+    }
   });
 };
 

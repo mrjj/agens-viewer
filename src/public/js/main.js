@@ -6,6 +6,8 @@ import { API_ENDPOINTS, DEFAULT_SERVER_CONFIG, UI } from '../../contants';
 import { COLORS_ARR, MaterialColors } from './materialColors';
 import { getItem, setItem } from './storage';
 import * as ko from 'knockout';
+import { initializeCypherEditor, parseQuery } from './cypher-editor';
+
 ko.options.deferUpdates = true;
 
 /**
@@ -177,6 +179,13 @@ export const AgensViewerModel = function () {
   this.query = ko.observable(((this.historyRecords() || []).length > 0)
     ? this.historyRecords()[0].query
     : DEFAULT_SERVER_CONFIG.DEFAULT_QUERY);
+  this.parsedQuery = ko.computed(function () {
+    try {
+      return parseQuery(this.query());
+    } catch (e) {
+      return `${this.query()}\nError:${e.toString()}`;
+    }
+  }, this);
   this.clearConfirm = ko.observable(false);
   this.nodeInfoType = ko.observable();
   this.nodeInfoId = ko.observable();
@@ -307,7 +316,9 @@ export const AgensViewerModel = function () {
     });
     this.updateHistory();
   };
-
+  window.onload = () => {
+    initializeCypherEditor(document.getElementById('cypher-editor'));
+  };
   return this;
 };
 
