@@ -36,7 +36,7 @@
   "dependencies": {
     "@antv/g6": "2.2.6",
     "@antv/g6-plugins": "1.0.9",
-    "agensgraph": "bitnine-oss/agensgraph-nodejs",
+    "agensgraph": "mrjj/agensgraph-nodejs",
     "codemirror": "5.44.0",
     "express": "4.16.4",
     "knockout": "3.5.0",
