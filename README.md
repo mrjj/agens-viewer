@@ -2,6 +2,8 @@
 
 This package provides basic web UI and node.js backend to work with [AgensGraph](https://github.com/bitnine-oss/agensgraph-docker/tree/master/AgensGraph) using [*Cypher*](https://www.opencypher.org/about) query language.
 
+[![CircleCI](https://circleci.com/gh/mrjj/agens-viewer.svg?style=svg)](https://circleci.com/gh/mrjj/agens-viewer)
+
 ![Screenshot of version 0.1.4](https://raw.githubusercontent.com/mrjj/agens-viewer/HEAD/doc/screenshot_0.1.4_01.png)
 
 ## How to use
