@@ -65,14 +65,14 @@
   ],
   "devDependencies": {
     "concurrently": "4.1.0",
-    "css-loader": "2.1.1",
+    "css-loader": "6.7.3",
     "eslint": "5.15.3",
     "jest": "24.5.0",
     "less": "3.9.0",
-    "less-loader": "4.1.0",
-    "style-loader": "0.23.1",
+    "less-loader": "11.1.0",
+    "style-loader": "3.3.1",
     "text-loader": "0.0.1",
-    "webpack": "4.29.6",
-    "webpack-cli": "3.3.0"
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1"
   }
 }
